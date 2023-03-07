@@ -4,7 +4,6 @@ This script demonstrates how to do real-time "image matting" with
 TensorRT optimized MODNet engine.
 """
 
-
 import argparse
 
 import numpy as np
@@ -17,7 +16,6 @@ from utils.background import Background
 from utils.display import open_window, show_fps
 from utils.display import FpsCalculator, ScreenToggler
 from utils.modnet import TrtMODNet
-
 
 WINDOW_NAME = 'TrtMODNetDemo'
 
@@ -125,7 +123,7 @@ class TrtMODNetRunner():
         while True:
             if cv2.getWindowProperty(WINDOW_NAME, 0) < 0:  break
             img, bg = self.cam.read(), self.bggen.read()
-            if img is None:  break
+            if img is None: break
             matte = self.modnet.infer(img)
             matted_img = self.blender.blend(img, bg, matte)
             fps = fps_calc.update()
@@ -135,7 +133,7 @@ class TrtMODNetRunner():
             key = cv2.waitKey(1)
             if key == ord('F') or key == ord('f'):  # Toggle fullscreen
                 scrn_tog.toggle()
-            elif key == 27:                         # ESC key: quit
+            elif key == 27:  # ESC key: quit
                 break
 
     def __del__(self):
